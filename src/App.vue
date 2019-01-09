@@ -1,25 +1,21 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <div>
-      <p>
-        If Element is successfully added to this project, you'll see an
-        <code v-text="'<el-button>'"></code>
-        below
-      </p>
-      <el-button>el-button</el-button>
-    </div>
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+     <left-sidebar/>
+     <vs-row>
+        <vs-col vs-offset="1"  vs-type="flex" vs-justify="left" vs-align="left" vs-w="11">
+          <router-view/>
+        </vs-col>
+    </vs-row>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import LeftSidebar from './components/LeftSidebar.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    LeftSidebar
   }
 }
 </script>

@@ -3,9 +3,18 @@
     <!-- Add row with 12 col -->
     <h3>Setup</h3>
     <vs-tabs>
-      <vs-tab vs-label="Home">
+      <vs-tab vs-label="Minha Equipe">
         <div>
-         
+          <vs-row vs-type="flex" vs-justify="flex-start">
+        <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="4">
+          <el-input placeholder="Digite uma palavra-chave e tecle enter para buscar." clearable prefix-icon="el-icon-search" v-model="search"></el-input>  
+        </vs-col>
+        <vs-col vs-type="flex" vs-justify="flex-end" vs-align="center" vs-w="4">
+        <label> Visualizar: </label>
+
+        </vs-col>
+        </vs-row>  
+        
         </div>
       </vs-tab>
       <vs-tab vs-label="Service">
@@ -27,13 +36,13 @@ export default {
   components: {},
   data() {
     return {
-      search: ""
+      search: "",
     };
   },
-  methods: {
-    searchTeam() {
-      console.log(this.search);
-    }
+  watch: {
+    search: function (value) {
+        console.log(value);
+      }
   }
 };
 </script>
