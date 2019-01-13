@@ -87,7 +87,7 @@
               vs-xs="12"
               :key="user.id"
             >
-              <user-card :user="user"/>
+              <user-card @edit_user="editUser" :user="user"/>
             </vs-col>
           </vs-row>
         </div>
@@ -99,6 +99,40 @@
         <div class>Tab</div>
       </vs-tab>
     </vs-tabs>
+    <!-- Modal edit user -->
+    <div class="centerx">
+      <vs-popup class="editpopup" title="Editar Usuário" :active.sync="popupActivo">
+        <vs-row>
+          <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="12">
+            <vs-input
+              icon="person"
+              type="text"
+              :value="editingUser.name"
+              v-model="editingUser.name"
+              label-placeholder="Nome"
+            />
+          </vs-col>
+
+          <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="12">
+            <vs-input
+              icon="email"
+              type="email"
+              :value="editingUser.email"
+              v-model="editingUser.email"
+              label-placeholder="Email"
+            />
+          </vs-col>
+          <vs-col>
+            <vs-button
+              color="success"
+              :value="editUser.id"
+              type="filled"
+              @click="saveEditUser"
+            >Salvar Edição</vs-button>
+          </vs-col>
+        </vs-row>
+      </vs-popup>
+    </div>
   </div>
 </template>
 
@@ -143,8 +177,14 @@ export default {
       active: false,
       name: "",
       email: "",
+      editingUser: {
+        id: 0,
+        name: "",
+        email: "teste",
+        image_url: ""
+      },
       nameNotValid: false,
-      editingUser: null,
+      popupActivo: false,
       emailNotValid: false,
       switchFreelasOrUsers: "",
       usersData: users
@@ -167,6 +207,22 @@ export default {
         title: "Mensagem!",
         text: "Membro adicionado a equipe com sucesso"
       });
+    },
+    editUser(id) {
+      const user = this.usersData.filter(user => user.id == id).pop();
+      this.editingUser = user;
+      this.popupActivo = true;
+    },
+    saveEditUser() {
+      const editUser = this.editingUser;
+      const users = this.usersData.map(function(item) {
+        return item.id == editUser.id ? editUser : item;
+      });
+      this.usersData = users;
+      this.$vs.notify({
+        title: "Mensagem!",
+        text: "Usuário alterado com sucesso"
+      });
     }
   },
   watch: {
@@ -188,7 +244,12 @@ export default {
 .home {
   width: 100%;
 }
-
+.editpopup .vs-input {
+  float: left;
+  width: 100%;
+  margin: 10px;
+  margin-top: 5px;
+}
 .a-icon {
   outline: none;
   text-decoration: none !important;

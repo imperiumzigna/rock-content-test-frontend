@@ -7,7 +7,13 @@
         <h5>{{user.email}}</h5>
       </div>
       <div class="bottom clearfix">
-        <el-button type="primary" :value="user.id" icon="el-icon-edit" circle></el-button>
+        <el-button
+          type="primary"
+          @click="$emit('edit_user', user.id)"
+          :value="user.id"
+          icon="el-icon-edit"
+          circle
+        ></el-button>
       </div>
     </el-card>
   </div>
